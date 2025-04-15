@@ -25,7 +25,7 @@ const VehicleDetail = ({ vehicle, onClose , handleShowTrackHistory   }) => {
   // Set default date and time values (today's date, current time)
   useEffect(() => {
     //Setting it for demo purposes
-    const fixedDate = new Date('2025-04-13T00:00:00');
+    const fixedDate = new Date('2025-04-14T00:00:00');
   
     const dateString = fixedDate.toISOString().split('T')[0];
     const timeString = '00:00'; 
@@ -33,7 +33,7 @@ const VehicleDetail = ({ vehicle, onClose , handleShowTrackHistory   }) => {
     const endTime = new Date(fixedDate);
     endTime.setHours(endTime.getHours() + 1);
     const endTimeString = endTime.toTimeString().slice(0, 5); 
-  
+    console.log(dateString);
     setHistoryDate(dateString);
     setHistoryTime(timeString);
     setEndHistoryTime(endTimeString);
@@ -76,10 +76,9 @@ const VehicleDetail = ({ vehicle, onClose , handleShowTrackHistory   }) => {
   // Handle view history click
   const handleViewHistory = async () => {
     try {
-      const url = `http://localhost:3000/api/vehicles/trackdata/${vehicle.id}?date=${historyDate}&startTime=${historyTime}&endTime=${endHistoryTime}`;
+      const url = `https://meowka-backend.onrender.com/api/vehicles/trackdata/${vehicle.id}?date=${historyDate}&startTime=${historyTime}&endTime=${endHistoryTime}`;
       const response = await fetch(url);
       const data = await response.json();
-      console.log(url);
       if (!data.success) {
         console.error('Error fetching track history:', data.message);
         return;
@@ -126,7 +125,7 @@ const VehicleDetail = ({ vehicle, onClose , handleShowTrackHistory   }) => {
             
             <div className="metric-item">
               <div className="metric-icon distance-icon"></div>
-              <div className="metric-value">{vehicle.distance} km</div>
+              <div className="metric-value">{vehicle.distance.toFixed(2)} km</div>
               <div className="metric-label">Distance</div>
             </div>
             

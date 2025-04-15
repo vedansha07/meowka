@@ -3,6 +3,7 @@ import {
   MapContainer,
   TileLayer,
   Marker,
+  Popup,
   useMap,
   Polyline,
 } from "react-leaflet";
@@ -383,7 +384,14 @@ const MapView = ({
                 selectedVehicle && selectedVehicle.id === vehicle.id,
                 vehicle.status || "Parked"
               )}
-            ></Marker>
+            >
+              <Popup>
+                <div>
+                  <h3>{vehicle.name}</h3>
+                  <p>{vehicle.status}</p>
+                </div>
+              </Popup>
+            </Marker>
           ))}
         {showTrackHistory &&
           displayedTrackData.length > 0 &&

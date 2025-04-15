@@ -20,7 +20,7 @@ function App() {
       try {
         setLoading(true);
         const response = await fetch(
-          "http://localhost:3000/api/vehicles/getall?limit=10"
+          "https://meowka-backend.onrender.com/api/vehicles/getall?limit=10"
         );
 
         if (!response.ok) {
@@ -34,14 +34,14 @@ function App() {
         }
 
         const vehicles = responseData.data;
-
+        console.log("Vehicles New : ", vehicles[0]);
         // Make sure to include all the fields from the backend
         const transformedData = vehicles.map((vehicle, index) => ({
           id: vehicle.vehicle_id || index + 1,
           name: vehicle.name,
           type: vehicle.type,
           status: vehicle.status || "Parked",
-          speed: vehicle.speed || 0,
+          speed: (vehicle.speed.toFixed(2)) || 0,
           distance: vehicle.distance || 0,
           fuel: Number(vehicle.fuel) || 0,
           position: [
